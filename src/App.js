@@ -88,6 +88,8 @@ export default () => {
         const canvas = canvasRef.current;
         canvas.width = canvas.parentElement.offsetWidth;
         canvas.height = canvas.parentElement.offsetHeight;
+        context = canvas.getContext('2d');
+        coverImage.onload = () => context.drawImage(coverImage, 0, 0, canvas.width, canvas.height);
 
         window.addEventListener('mousedown', touchStart, false);
         window.addEventListener('touchstart', touchStart, false);
@@ -95,11 +97,6 @@ export default () => {
         window.addEventListener('touchmove', touchMove, false);
         window.addEventListener('mouseup', touchEnd, false);
         window.addEventListener('touchend', touchEnd, false);
-
-        context = canvas.getContext('2d');
-
-
-        coverImage.onload = () => context.drawImage(coverImage, 0, 0, canvas.width, canvas.height);
 
         return () => {
             window.removeEventListener('mousedown', touchStart);
