@@ -1,6 +1,9 @@
 import React, {useEffect, useRef, useState} from 'react';
 import styled from 'styled-components';
 import _ from 'lodash';
+import inobounce from 'inobounce';
+
+inobounce.enable();
 
 const height = Math.min(window.innerHeight - 110, 640);
 const ratio = height / 640;
@@ -17,7 +20,7 @@ const icons = [
     require('./images/icon5.png')
 ];
 
-const selectedIcons = [_.sample(icons), _.sample(icons), _.sample(icons)];
+const selectedIcons = [_.sample(_.shuffle(icons)), _.sample(_.shuffle(icons)), _.sample(icons)];
 
 const Container = styled.div`
   position: absolute;

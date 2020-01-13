@@ -16,6 +16,8 @@ body {
     display: flex;
     justify-content: center;
     align-items: center;
+    overscroll-behavior: contain;
+    overflow: hidden;
 }
 
 .no-select {
