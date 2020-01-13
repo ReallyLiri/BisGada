@@ -1,6 +1,9 @@
 import React, {useEffect, useRef} from 'react';
 import styled from 'styled-components';
 
+const height = Math.min(window.innerHeight - 105, 640);
+const width = height * 0.5625;
+
 const Container = styled.div`
   position: absolute;
   left: 0;
@@ -9,21 +12,21 @@ const Container = styled.div`
   bottom: 0;
   margin: auto;
   background-color: white;
-  height: 640px;
-  width: 360px
+  height: ${height + 105}px;
+  width: ${width}px;
 `;
 
 const Canvas = styled.canvas`
   position: absolute;
   z-index: 2;
-  width: 360px;
-  height: 640px;
+  width: ${width}px;
+  height: ${height}px;
 `;
 
 const Hidden = styled.img`
   position: absolute;
-  width: 360px;
-  height: 640px;
+  width: ${width}px;
+  height: ${height}px;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -31,7 +34,7 @@ const Hidden = styled.img`
 
 const Button = styled.button`
   position: absolute;
-  top: 640px;
+  top: ${height}px;
   left: 130px;
   display: flex;
   justify-content: center;
@@ -108,8 +111,8 @@ export default () => {
 
     useEffect(() => {
         const canvas = canvasRef.current;
-        canvas.width = canvas.parentElement.offsetWidth;
-        canvas.height = canvas.parentElement.offsetHeight;
+        canvas.width = width;
+        canvas.height = height;
         context = canvas.getContext('2d');
         coverImage.onload = () => context.drawImage(coverImage, 0, 0, canvas.width, canvas.height);
 
