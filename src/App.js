@@ -1,4 +1,4 @@
-import React, {useEffect, useRef} from 'react';
+import React, {useEffect, useRef, useState} from 'react';
 import styled from 'styled-components';
 import _ from 'lodash';
 
@@ -51,7 +51,7 @@ const Hidden = styled.img`
 const Button = styled.button`
   position: absolute;
   top: ${height}px;
-  left: ${width/2 - 50}px;
+  left: ${width / 2 - 50}px;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -64,7 +64,7 @@ const Button = styled.button`
 const Icon1 = styled.img`
   position: absolute;
   top: ${iconHeightOffset}px;
-  left: ${width/2 - iconSize/2}px;
+  left: ${width / 2 - iconSize / 2}px;
   z-index: 1;
   height: ${iconSize}px;
   width: ${iconSize}px;
@@ -73,7 +73,7 @@ const Icon1 = styled.img`
 const Icon2 = styled.img`
   position: absolute;
   top: ${iconHeightOffset + iconSize}px;
-  left: ${width/2 - iconSize/2}px;
+  left: ${width / 2 - iconSize / 2}px;
   z-index: 1;
   height: ${iconSize}px;
   width: ${iconSize}px;
@@ -82,7 +82,7 @@ const Icon2 = styled.img`
 const Icon3 = styled.img`
   position: absolute;
   top: ${iconHeightOffset + iconSize * 2}px;
-  left: ${width/2 - iconSize/2}px;
+  left: ${width / 2 - iconSize / 2}px;
   z-index: 1;
   height: ${iconSize}px;
   width: ${iconSize}px;
@@ -94,6 +94,7 @@ export default () => {
     let lastPoint = null;
     let context = null;
     const canvasRef = useRef(null);
+    const [showBack, setShowBack] = useState(false);
 
     const brush = new Image();
     brush.src = require('./images/brush.png');
@@ -166,6 +167,8 @@ export default () => {
         window.addEventListener('mouseup', touchEnd, false);
         window.addEventListener('touchend', touchEnd, false);
 
+        setTimeout(() => setShowBack(true), 1000);
+
         return () => {
             window.removeEventListener('mousedown', touchStart);
             window.removeEventListener('touchstart', touchStart);
@@ -179,10 +182,14 @@ export default () => {
     return (
         <Container>
             <Canvas ref={canvasRef}/>
-            <Icon1 src={selectedIcons[0]}/>
-            <Icon2 src={selectedIcons[1]}/>
-            <Icon3 src={selectedIcons[2]}/>
-            <Hidden className="secret no-select" src={require('./images/site-back.png')}/>
+            {showBack && (
+                <div>
+                    <Icon1 src={selectedIcons[0]}/>
+                    <Icon2 src={selectedIcons[1]}/>
+                    <Icon3 src={selectedIcons[2]}/>
+                    <Hidden className="secret no-select" src={require('./images/site-back.png')}/>
+                </div>
+            )}
             <Button onClick={() => window.location.reload()}>
                 <img src={require('./images/refresh.png')} alt='refresh' height={100} width={100}/>
             </Button>
