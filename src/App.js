@@ -5,8 +5,13 @@ import inobounce from 'inobounce';
 
 inobounce.enable();
 
-const height = Math.min(window.innerHeight - 110, 640);
-const ratio = height / 640;
+let ratio = 1;
+let height = 640;
+while (height > (window.innerHeight - 60)) {
+    ratio -= 0.1;
+    height = 640 * ratio;
+}
+
 const width = 360 * ratio;
 const iconSize = 120 * ratio;
 const iconHeightOffset = 210 * ratio;
@@ -30,7 +35,7 @@ const Container = styled.div`
   bottom: 0;
   margin: auto;
   background-color: white;
-  height: ${height + 110}px;
+  height: ${height + 60}px;
   width: ${width}px;
   filter: ${`hue-rotate(${hueDegrees}deg)`};
 `;
@@ -194,7 +199,7 @@ export default () => {
                 </div>
             )}
             <Button onClick={() => window.location.reload()}>
-                <img src={require('./images/refresh.png')} alt='refresh' height={100} width={100}/>
+                <img src={require('./images/refresh.png')} alt='refresh' height={50} width={50}/>
             </Button>
         </Container>
     );
