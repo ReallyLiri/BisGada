@@ -2,23 +2,45 @@ import React, {useEffect, useRef} from 'react';
 import styled from 'styled-components';
 
 const Container = styled.div`
-  position: relative;
-  width: 285px;
-  height: 70px;
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  margin: auto;
+  background-color: white;
+  height: 640px;
+  width: 360px
 `;
 
 const Canvas = styled.canvas`
   position: absolute;
   z-index: 2;
-  width: 100%;
-  height: 100%;
+  width: 360px;
+  height: 640px;
 `;
 
-const Hidden = styled.div`
-  background-color: red;
+const Hidden = styled.img`
+  position: absolute;
+  width: 360px;
+  height: 640px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 `;
 
-const secret = Math.random().toString(16).slice(2, 7).toUpperCase();
+const Button = styled.button`
+  position: absolute;
+  top: 640px;
+  left: 130px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: transparent;
+  border-color: transparent;
+  border-width: 0;
+  outline: none;
+`;
 
 export default () => {
 
@@ -31,7 +53,7 @@ export default () => {
     brush.src = require('./images/brush.png');
 
     const coverImage = new Image();
-    coverImage.src = require('./images/cover.png');
+    coverImage.src = require('./images/site-top.png');
 
     const getPosition = (event) => {
 
@@ -111,9 +133,10 @@ export default () => {
     return (
         <Container>
             <Canvas ref={canvasRef}/>
-            <Hidden className="secret absolute fill no-select flex justify-center items-center">
-                {secret}
-            </Hidden>
+            <Hidden className="secret no-select" src={require('./images/site-back.png')}/>
+            <Button onClick={() => window.location.reload()}>
+                <img src={require('./images/refresh.png')} alt='refresh' height={100} width={100}/>
+            </Button>
         </Container>
     );
 }
